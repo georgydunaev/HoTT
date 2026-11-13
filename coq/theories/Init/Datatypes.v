@@ -28,7 +28,7 @@ Inductive option (A : Type) : Type :=
 
 Scheme option_rect := Induction for option Sort Type.
 
-Arguments None [A].
+Arguments None {A}.
 
 (** [sum A B], written [A + B], is the disjoint sum of [A] and [B] *)
 
@@ -108,7 +108,7 @@ Hint Resolve identity_refl: core.
 Arguments identity {A} _ _.
 Arguments identity_refl {A a} , [A] a.
 
-Arguments identity_rect [A] a P f y i.
+Arguments identity_rect [A] a P f y i : rename.
 
 
 (** Identity type *)
@@ -140,7 +140,7 @@ Inductive list (A : Type) : Type :=
 
 Scheme list_rect := Induction for list Sort Type.
 
-Arguments nil [A].
+Arguments nil {A}.
 Infix "::" := cons (at level 60, right associativity) : list_scope.
 Delimit Scope list_scope with list.
 Bind Scope list_scope with list.

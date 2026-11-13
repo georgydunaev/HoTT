@@ -163,7 +163,7 @@ Definition Exc := option.
 Definition value := Some.
 Definition error := @None.
 
-Arguments error [A].
+Arguments error {A}.
 
 Definition except := False_rec. (* for compatibility with previous versions *)
 

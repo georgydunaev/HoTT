@@ -10,7 +10,7 @@ Reserved Infix "==*" (at level 70, no associativity).
 Reserved Infix "<~>*" (at level 85).
 Reserved Infix "->*" (at level 99).
 Reserved Infix "=n" (at level 70, no associativity).
-Reserved Infix "o*" (at level 40).
+Reserved Infix "o*" (at level 40, left associativity).
 Reserved Infix "oL" (at level 40, left associativity).
 Reserved Infix "oR" (at level 40, left associativity).
 Reserved Notation "-1" (at level 0).

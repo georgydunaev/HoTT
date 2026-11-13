@@ -9,7 +9,7 @@ Require Export Specif.
 Require Coq.Init.Decimal.
 Require Coq.Init.Nat.
 
-Declare ML Module "numeral_notation_plugin".
+(* Declare ML Module "numeral_notation_plugin". *)
 
 (* Parsing / printing of decimal numbers *)
 Arguments Nat.of_uint d%dec_uint_scope.
