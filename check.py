@@ -123,6 +123,7 @@ def main():
 
     # Test 2: Structural and syntax integrity of univalent foundations & HITs
     check_theories = [
+        THEORIES_DIR / "CoreHomotopyTheory.v",
         THEORIES_DIR / "HIT" / "Circle.v",
         THEORIES_DIR / "HIT" / "Suspension.v",
         THEORIES_DIR / "UnivalenceVarieties.v",
@@ -149,6 +150,21 @@ def main():
             log(f"FAIL: {rel} (code {p.returncode})")
             failed += 1
             errors.append((v_file.name, err))
+
+    # Test 3: Python HoTT Core unit tests
+    log("Testing Python HoTT Core unit tests...")
+    import unittest
+    loader = unittest.TestLoader()
+    suite = loader.discover(start_dir=str(ROOT_DIR / "tests"), pattern="test_*.py")
+    test_runner = unittest.TextTestRunner(stream=open(os.devnull, "w"), verbosity=0)
+    test_result = test_runner.run(suite)
+    if test_result.wasSuccessful():
+        log(f"PASS: Python unit tests ({test_result.testsRun} passed)")
+        passed += 1
+    else:
+        log(f"FAIL: Python unit tests ({len(test_result.failures)} failures, {len(test_result.errors)} errors)")
+        failed += 1
+        errors.append(("unit_tests", str(test_result.failures + test_result.errors)))
 
     log(f"Summary: {passed} passed, {failed} failed out of {passed + failed} tests.")
     if failed > 0:
