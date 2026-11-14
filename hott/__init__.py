@@ -148,6 +148,19 @@ from hott.hit import (
     torus_cell_complex,
 )
 
+from hott.connectivity import (
+    ConnectivityLevel,
+    ConnectedType,
+    ConnectedMap,
+    fiber_connectivity_validator,
+    LoopSpace,
+    SuspensionFunctor,
+    FreudenthalMap,
+    BlakersMasseySquare,
+    freudenthal_stable_range,
+    stable_homotopy_group_sphere,
+)
+
 __all__ = [
     "HoTTType",
     "IdType",
@@ -275,4 +288,14 @@ __all__ = [
     "prod_to_torus",
     "torus_equiv_circle_prod",
     "torus_cell_complex",
+    "ConnectivityLevel",
+    "ConnectedType",
+    "ConnectedMap",
+    "fiber_connectivity_validator",
+    "LoopSpace",
+    "SuspensionFunctor",
+    "FreudenthalMap",
+    "BlakersMasseySquare",
+    "freudenthal_stable_range",
+    "stable_homotopy_group_sphere",
 ]

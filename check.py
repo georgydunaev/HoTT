@@ -125,6 +125,7 @@ def main():
     check_theories = [
         THEORIES_DIR / "CoreHomotopyTheory.v",
         THEORIES_DIR / "HigherInductiveTypes.v",
+        THEORIES_DIR / "BlakersMassey.v",
         THEORIES_DIR / "HIT" / "Circle.v",
         THEORIES_DIR / "HIT" / "Suspension.v",
         THEORIES_DIR / "UnivalenceVarieties.v",
