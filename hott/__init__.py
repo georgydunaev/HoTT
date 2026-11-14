@@ -52,6 +52,12 @@ from hott.univalence import (
     UnivalenceAxiom,
     happly,
     FunctionExtensionality,
+    eqtoequiv_is_equiv,
+    weak_funext,
+    funext_dep,
+    funext_nondep,
+    prop_equiv_to_id,
+    is_prop_equiv_is_id,
 )
 
 from hott.truncation import (
@@ -123,6 +129,12 @@ __all__ = [
     "UnivalenceAxiom",
     "happly",
     "FunctionExtensionality",
+    "eqtoequiv_is_equiv",
+    "weak_funext",
+    "funext_dep",
+    "funext_nondep",
+    "prop_equiv_to_id",
+    "is_prop_equiv_is_id",
     "Fiber",
     "equiv_to_contr_fibers",
     "contr_fibers_to_isequiv",
