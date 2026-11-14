@@ -35,30 +35,37 @@ def verify_coq_theories() -> bool:
         log("Notice: coqc not in PATH, skipping Coq standalone verification.")
         return True
 
-    core_v = ROOT_DIR / "theories" / "CoreHomotopyTheory.v"
-    if not core_v.exists():
-        log(f"Notice: {core_v} not found, skipping Coq verification.")
-        return True
+    theories_to_verify = [
+        ROOT_DIR / "theories" / "CoreHomotopyTheory.v",
+        ROOT_DIR / "theories" / "Truncation.v",
+    ]
 
-    log(f"Verifying formal Coq theory: {core_v.name}...")
-    res = subprocess.run([coqc, "-indices-matter", str(core_v)], capture_output=True, text=True)
+    all_passed = True
+    for theory_v in theories_to_verify:
+        if not theory_v.exists():
+            log(f"Notice: {theory_v} not found, skipping.")
+            continue
 
-    # Clean artifacts
-    for ext in [".vo", ".glob", ".vok", ".vos"]:
-        f = core_v.with_suffix(ext)
-        if f.exists():
-            try:
-                f.unlink()
-            except Exception:
-                pass
+        log(f"Verifying formal Coq theory: {theory_v.name}...")
+        res = subprocess.run([coqc, "-indices-matter", str(theory_v)], capture_output=True, text=True)
 
-    if res.returncode == 0:
-        log(f"PASS: {core_v.name} verified successfully.")
-        return True
-    else:
-        log(f"FAIL: {core_v.name} compilation failed with code {res.returncode}")
-        print(res.stderr)
-        return False
+        # Clean artifacts
+        for ext in [".vo", ".glob", ".vok", ".vos"]:
+            f = theory_v.with_suffix(ext)
+            if f.exists():
+                try:
+                    f.unlink()
+                except Exception:
+                    pass
+
+        if res.returncode == 0:
+            log(f"PASS: {theory_v.name} verified successfully.")
+        else:
+            log(f"FAIL: {theory_v.name} compilation failed with code {res.returncode}")
+            print(res.stderr)
+            all_passed = False
+
+    return all_passed
 
 
 def main():
