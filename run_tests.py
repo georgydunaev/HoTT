@@ -39,6 +39,7 @@ def verify_coq_theories() -> bool:
         ROOT_DIR / "theories" / "CoreHomotopyTheory.v",
         ROOT_DIR / "theories" / "Truncation.v",
         ROOT_DIR / "theories" / "Univalence.v",
+        ROOT_DIR / "theories" / "HigherInductiveTypes.v",
     ]
 
     all_passed = True

@@ -124,6 +124,7 @@ def main():
     # Test 2: Structural and syntax integrity of univalent foundations & HITs
     check_theories = [
         THEORIES_DIR / "CoreHomotopyTheory.v",
+        THEORIES_DIR / "HigherInductiveTypes.v",
         THEORIES_DIR / "HIT" / "Circle.v",
         THEORIES_DIR / "HIT" / "Suspension.v",
         THEORIES_DIR / "UnivalenceVarieties.v",

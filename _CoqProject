@@ -39,6 +39,7 @@ theories/HSet.v
 theories/CoreHomotopyTheory.v
 theories/Truncation.v
 theories/Univalence.v
+theories/HigherInductiveTypes.v
 theories/UnivalenceImpliesFunext.v
 theories/Spaces/Nat.v
 theories/Tactics.v
