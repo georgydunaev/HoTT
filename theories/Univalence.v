@@ -280,3 +280,14 @@ Proof.
   destruct iff as [f g].
   apply (prop_equiv_to_id A B pA pB f g).
 Defined.
+
+(* 8. Unified Univalence Varieties Bridge *)
+
+Record WeakUnivalence_Package : Type := Build_WeakUnivalence {
+  w_ua : forall (A B : Type), Equiv A B -> paths A B;
+  w_ua_beta : forall (A B : Type) (e : Equiv A B), paths (idToEqv A B (w_ua A B e)) e
+}.
+
+Definition standard_univalence_to_weak : WeakUnivalence_Package :=
+  Build_WeakUnivalence ua idToEqv_ua.
+

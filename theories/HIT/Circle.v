@@ -99,6 +99,17 @@ Definition S1_encode (x:S1) : (base = x) -> S1_code x
 
 (* Decode by iterating loop. *)
 
+Lemma S1_decode_loop_step (z : Int)
+  : loopexp loop (pred_int z) @ loop = loopexp loop z.
+Proof.
+  destruct z as [[|n] | | [|n]]; simpl.
+  - by apply concat_pV_p.
+  - by apply concat_pV_p.
+  - by apply concat_Vp.
+  - by apply concat_1p.
+  - reflexivity.
+Defined.
+
 Definition S1_decode (x:S1) : S1_code x -> (base = x).
 Proof.
   revert x; refine (S1_ind (fun x => S1_code x -> base = x) (loopexp loop) _).
@@ -106,12 +117,7 @@ Proof.
   refine (transport_arrow _ _ _ @ _).
   refine (transport_paths_r loop _ @ _).
   rewrite transport_S1_code_loopV.
-  destruct z as [[|n] | | [|n]]; simpl.
-  by apply concat_pV_p.
-  by apply concat_pV_p.
-  by apply concat_Vp.
-  by apply concat_1p.
-  reflexivity.
+  apply S1_decode_loop_step.
 Defined.
 
 (* The nontrivial part of the proof that decode and encode are equivalences is showing that decoding followed by encoding is the identity on the fibers over [base]. *)
@@ -136,18 +142,27 @@ Proof.
   assumption.
 Defined.
 
+(* Modularized section and retraction lemmas for S1 encode-decode *)
+
+Lemma S1_encode_sect (x : S1) : Sect (S1_decode x) (S1_encode x).
+Proof.
+  revert x.
+  refine (S1_ind (fun x => Sect (S1_decode x) (S1_encode x))
+    S1_encode_loopexp _).
+  by apply path_forall; intros z; apply set_path2.
+Defined.
+
+Lemma S1_encode_retr (x : S1) : Sect (S1_encode x) (S1_decode x).
+Proof.
+  intros []; reflexivity.
+Defined.
+
 (* Now we put it together. *)
 
 Definition S1_encode_isequiv (x:S1) : IsEquiv (S1_encode x).
 Proof.
-  refine (isequiv_adjointify (S1_encode x) (S1_decode x) _ _).
-  (* Here we induct on [x:S1].  We just did the case when [x] is [base]. *)
-  refine (S1_ind (fun x => Sect (S1_decode x) (S1_encode x))
-    S1_encode_loopexp _ _).
-  (* What remains is easy since [Int] is known to be a set. *)
-  by apply path_forall; intros z; apply set_path2.
-  (* The other side is trivial by path induction. *)
-  intros []; reflexivity.
+  refine (isequiv_adjointify (S1_encode x) (S1_decode x)
+    (S1_encode_sect x) (S1_encode_retr x)).
 Defined.
 
 Definition equiv_loopS1_int : (base = base) <~> Int

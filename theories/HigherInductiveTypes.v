@@ -327,3 +327,24 @@ Proof.
   - exact torus_prod_sect.
   - exact torus_prod_retr.
 Defined.
+
+(* 8. Modularized Meridian Loop Lemmas for Suspensions and Higher Spheres *)
+
+Definition Susp_merid_loop {A : Type} (a0 a : A) : paths (@north A) (@north A) :=
+  concat (merid A a) (inverse (merid A a0)).
+
+Theorem Susp_merid_loop_base {A : Type} (a0 : A) :
+  paths (Susp_merid_loop a0 a0) idpath.
+Proof.
+  unfold Susp_merid_loop.
+  apply concat_pV.
+Defined.
+
+Theorem Susp_merid_loop_inv {A : Type} (a0 a : A) :
+  paths (inverse (Susp_merid_loop a0 a)) (Susp_merid_loop a a0).
+Proof.
+  unfold Susp_merid_loop.
+  refine (concat (inv_pp (merid A a) (inverse (merid A a0))) _).
+  exact (ap (fun p => concat p (inverse (merid A a))) (inv_V (merid A a0))).
+Defined.
+

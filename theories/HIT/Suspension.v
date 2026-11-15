@@ -155,6 +155,26 @@ Global Instance ispointed_path_susp `{IsPointed X} : IsPointed (North = South :>
 Global Instance ispointed_path_susp' `{IsPointed X} : IsPointed (South = North :> Susp X) | 0
   := (merid (point X))^.
 
+(** Reusable meridian loop and equator transport lemmas for higher spheres *)
+
+Definition Susp_merid_loop {X : Type} (x0 x : X) : North = North :> Susp X
+  := merid x @ (merid x0)^.
+
+Lemma Susp_merid_loop_base {X : Type} (x0 : X)
+  : Susp_merid_loop x0 x0 = idpath.
+Proof.
+  unfold Susp_merid_loop.
+  apply concat_pV.
+Defined.
+
+Lemma Susp_merid_loop_inv {X : Type} (x0 x : X)
+  : (Susp_merid_loop x0 x)^ = Susp_merid_loop x x0.
+Proof.
+  unfold Susp_merid_loop.
+  refine (inv_pp (merid x) (merid x0)^ @ _).
+  apply whiskerR, inv_V.
+Defined.
+
 Definition psusp (X : pType) : pType
   := Build_pType (Susp X) _.
 
